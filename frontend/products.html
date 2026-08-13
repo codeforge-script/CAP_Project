@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Products - JoelMart</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f6f8;
+            color: #222;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            background-color: #131921;
+            color: white;
+            padding: 15px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #ff9900;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .cart-btn {
+            background-color: #ff9900;
+            color: #111;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* HEADER */
+
+        .header {
+            text-align: center;
+            padding: 35px 20px 20px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+        }
+
+        /* SEARCH */
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto 30px;
+            max-width: 700px;
+            padding: 0 20px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px 0 0 6px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-container button {
+            padding: 14px 22px;
+            border: none;
+            background-color: #ff9900;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 0 6px 6px 0;
+        }
+
+        /* CATEGORY */
+
+        .category-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .category-container select {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        /* PRODUCTS */
+
+        .products-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 180px;
+            background-color: #eee;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+            margin-bottom: 15px;
+
+            font-size: 60px;
+        }
+
+        .product-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .product-category {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            color: #b12704;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stock {
+            font-size: 14px;
+            color: green;
+            margin-bottom: 15px;
+        }
+
+        .add-cart {
+            width: 100%;
+            padding: 11px;
+            border: none;
+            border-radius: 5px;
+
+            background-color: #ff9900;
+
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .add-cart:hover {
+            background-color: #e68a00;
+        }
+
+        /* EMPTY */
+
+        .no-products {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 50px;
+            color: #777;
+            font-size: 18px;
+        }
+
+        /* DATABASE STATUS */
+
+        .database-status {
+            text-align: center;
+            margin: 25px;
+            font-size: 14px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            nav {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="logo">
+            JoelMart
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a href="login.html">
+                Login
+            </a>
+
+            <a href="register.html">
+                Register
+            </a>
+
+            <a href="cart.html" class="cart-btn">
+                🛒 Cart
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HEADER -->
+
+    <section class="header">
+
+        <h1>
+            Explore Products
+        </h1>
+
+        <p>
+            Search and find products from different sellers
+        </p>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-container">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search products..."
+        >
+
+        <button onclick="searchProducts()">
+            Search
+        </button>
+
+    </div>
+
+
+    <!-- CATEGORY -->
+
+    <div class="category-container">
+
+        <select id="categoryFilter" onchange="filterProducts()">
+
+            <option value="all">
+                All Categories
+            </option>
+
+            <option value="electronics">
+                Electronics
+            </option>
+
+            <option value="fashion">
+                Fashion
+            </option>
+
+            <option value="books">
+                Books
+            </option>
+
+            <option value="home">
+                Home
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- DATABASE STATUS -->
+
+    <div class="database-status" id="databaseStatus">
+
+        Loading products...
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+
+    <div
+        class="products-container"
+        id="productsContainer"
+    >
+
+    </div>
+
+
+    <script>
+
+        /*
+         * BACKEND API
+         *
+         * Later our C++ + Drogon backend
+         * will provide this API.
+         */
+
+        const API_URL = "http://localhost:8080/api/products";
+
+
+        /*
+         * Temporary product array.
+         *
+         * This is ONLY for testing the frontend.
+         *
+         * Later these products will come
+         * from SQLite database through C++ backend.
+         */
+
+        let products = [
+
+            {
+                id: 1,
+                name: "Laptop",
+                category: "electronics",
+                price: 45000,
+                stock: 10,
+                seller: "Seller 1",
+                image: "💻"
+            },
+
+            {
+                id: 2,
+                name: "Smartphone",
+                category: "electronics",
+                price: 18000,
+                stock: 15,
+                seller: "Seller 2",
+                image: "📱"
+            },
+
+            {
+                id: 3,
+                name: "Headphones",
+                category: "electronics",
+                price: 2500,
+                stock: 20,
+                seller: "Seller 3",
+                image: "🎧"
+            },
+
+            {
+                id: 4,
+                name: "T-Shirt",
+                category: "fashion",
+                price: 799,
+                stock: 30,
+                seller: "Seller 4",
+                image: "👕"
+            }
+
+        ];
+
+
+        /*
+         * DISPLAY PRODUCTS
+         */
+
+        function displayProducts(productList) {
+
+            const container =
+                document.getElementById("productsContainer");
+
+            container.innerHTML = "";
+
+
+            if (productList.length === 0) {
+
+                container.innerHTML =
+                    `<div class="no-products">
+                        No products found.
+                    </div>`;
+
+                return;
+            }
+
+
+            productList.forEach(product => {
+
+                const card = document.createElement("div");
+
+                card.className = "product-card";
+
+
+                card.innerHTML = `
+
+                    <div class="product-image">
+
+                        ${product.image}
+
+                    </div>
+
+                    <h3>
+                        ${product.name}
+                    </h3>
+
+                    <p class="product-category">
+
+                        Category:
+                        ${product.category}
+
+                    </p>
+
+                    <p>
+
+                        Seller:
+                        ${product.seller}
+
+                    </p>
+
+                    <p class="price">
+
+                        ₹${product.price}
+
+                    </p>
+
+                    <p class="stock">
+
+                        Stock:
+                        ${product.stock}
+
+                    </p>
+
+                    <button
+                        class="add-cart"
+                        onclick="addToCart(${product.id})"
+                    >
+
+                        Add to Cart
+
+                    </button>
+
+                `;
+
+
+                container.appendChild(card);
+
+            });
+
+        }
+
+
+        /*
+         * SEARCH PRODUCTS
+         */
+
+        function searchProducts() {
+
+            const searchText =
+                document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+
+            const filtered =
+                products.filter(product =>
+
+                    product.name
+                    .toLowerCase()
+                    .includes(searchText)
+
+                );
+
+
+            displayProducts(filtered);
+
+        }
+
+
+        /*
+         * CATEGORY FILTER
+         */
+
+        function filterProducts() {
+
+            const category =
+                document
+                .getElementById("categoryFilter")
+                .value;
+
+
+            if (category === "all") {
+
+                displayProducts(products);
+
+                return;
+
+            }
+
+
+            const filtered =
+                products.filter(product =>
+
+                    product.category === category
+
+                );
+
+
+            displayProducts(filtered);
+
+        }
+
+
+        /*
+         * ADD TO CART
+         */
+
+        function addToCart(productId) {
+
+            const product =
+                products.find(
+                    p => p.id === productId
+                );
+
+
+            if (!product) {
+
+                return;
+
+            }
+
+
+            let cart =
+                JSON.parse(
+                    localStorage.getItem("cart")
+                ) || [];
+
+
+            const existing =
+                cart.find(
+                    item => item.id === productId
+                );
+
+
+            if (existing) {
+
+                existing.quantity++;
+
+            } else {
+
+                cart.push({
+
+                    id: product.id,
+
+                    name: product.name,
+
+                    price: product.price,
+
+                    quantity: 1,
+
+                    seller: product.seller
+
+                });
+
+            }
+
+
+            localStorage.setItem(
+                "cart",
+                JSON.stringify(cart)
+            );
+
+
+            alert(
+                product.name +
+                " added to cart!"
+            );
+
+        }
+
+
+        /*
+         * LOAD PRODUCTS
+         *
+         * For now we display test data.
+         *
+         * Once the C++ backend is ready,
+         * this function will get products
+         * from SQLite database.
+         */
+
+        async function loadProductsFromDatabase() {
+
+            try {
+
+                const response =
+                    await fetch(API_URL);
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Backend not available"
+                    );
+
+                }
+
+
+                const databaseProducts =
+                    await response.json();
+
+
+                products =
+                    databaseProducts;
+
+
+                document
+                    .getElementById("databaseStatus")
+                    .innerText =
+                    "🟢 Connected to database";
+
+
+                displayProducts(products);
+
+            }
+
+            catch (error) {
+
+                document
+                    .getElementById("databaseStatus")
+                    .innerText =
+                    "🟡 Frontend test mode - Backend not connected yet";
+
+
+                displayProducts(products);
+
+            }
+
+        }
+
+
+        /*
+         * START PAGE
+         */
+
+        loadProductsFromDatabase();
+
+    </script>
+
+</body>
+
+</html>
