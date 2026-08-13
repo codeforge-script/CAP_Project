@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order History - JoelMart</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f6f8;
+            color: #222;
+        }
+
+        nav {
+            background-color: #131921;
+            color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ff9900;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .order-id {
+            font-weight: bold;
+        }
+
+        .status {
+            color: #155724;
+            background-color: #d4edda;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-total {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .date {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .empty {
+            background: white;
+            text-align: center;
+            padding: 60px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .shop-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #ff9900;
+            color: #111;
+            padding: 12px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .order-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <div class="logo">
+            JoelMart
+        </div>
+
+        <div>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a href="cart.html">
+                Cart
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Order History -->
+
+    <div class="container">
+
+        <h1>
+            📦 My Orders
+        </h1>
+
+        <div id="ordersContainer">
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /*
+         * TEMPORARY ORDER DATA
+         *
+         * Later this data will come from:
+         *
+         * JavaScript
+         *      ↓
+         * C++ Backend
+         *      ↓
+         * SQLite
+         *      ↓
+         * orders table
+         */
+
+
+        let orders = [
+
+            {
+                id: "ORD1001",
+
+                date: "13 August 2026",
+
+                status: "Delivered",
+
+                items: [
+                    {
+                        name: "Laptop",
+                        quantity: 1,
+                        price: 45000
+                    }
+                ],
+
+                total: 45000
+            },
+
+            {
+                id: "ORD1002",
+
+                date: "12 August 2026",
+
+                status: "Processing",
+
+                items: [
+                    {
+                        name: "Headphones",
+                        quantity: 2,
+                        price: 2500
+                    },
+
+                    {
+                        name: "T-Shirt",
+                        quantity: 1,
+                        price: 799
+                    }
+                ],
+
+                total: 5799
+            }
+
+        ];
+
+
+        function displayOrders() {
+
+            const container =
+                document.getElementById(
+                    "ordersContainer"
+                );
+
+
+            container.innerHTML = "";
+
+
+            if (orders.length === 0) {
+
+                container.innerHTML = `
+
+                    <div class="empty">
+
+                        <h2>
+                            No orders yet
+                        </h2>
+
+                        <p>
+                            Your purchased products
+                            will appear here.
+                        </p>
+
+                        <a
+                            href="products.html"
+                            class="shop-btn">
+
+                            Start Shopping
+
+                        </a>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            orders.forEach(order => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className =
+                    "order-card";
+
+
+                let itemsHTML = "";
+
+
+                order.items.forEach(item => {
+
+                    itemsHTML += `
+
+                        <div class="order-item">
+
+                            <span>
+
+                                ${item.name}
+                                × ${item.quantity}
+
+                            </span>
+
+                            <span>
+
+                                ₹${item.price *
+                                item.quantity}
+
+                            </span>
+
+                        </div>
+
+                    `;
+
+                });
+
+
+                card.innerHTML = `
+
+                    <div class="order-header">
+
+                        <div>
+
+                            <div class="order-id">
+
+                                Order ID:
+                                ${order.id}
+
+                            </div>
+
+                            <div class="date">
+
+                                ${order.date}
+
+                            </div>
+
+                        </div>
+
+                        <div class="status">
+
+                            ${order.status}
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        ${itemsHTML}
+
+                    </div>
+
+
+                    <div class="order-total">
+
+                        Total:
+                        ₹${order.total}
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(card);
+
+            });
+
+        }
+
+
+        /*
+         * Later:
+         *
+         * fetch("/api/orders")
+         *
+         * will retrieve orders from
+         * the C++ backend.
+         */
+
+
+        displayOrders();
+
+    </script>
+
+</body>
+
+</html>
