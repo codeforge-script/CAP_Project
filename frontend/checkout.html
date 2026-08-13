@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - JoelMart</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f6f8;
+            color: #222;
+        }
+
+        nav {
+            background-color: #131921;
+            color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ff9900;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .box {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .box h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        textarea {
+            height: 90px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #ff9900;
+        }
+
+        .payment-option {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .payment-option label {
+            display: inline;
+            margin-left: 8px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+
+        .total {
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .place-order {
+            width: 100%;
+            padding: 14px;
+            background-color: #ff9900;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .place-order:hover {
+            background-color: #e68a00;
+        }
+
+        .message {
+            display: none;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 750px) {
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            JoelMart
+        </div>
+
+        <div>
+            <a href="products.html">Products</a>
+            <a href="cart.html">Cart</a>
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+
+        <h1>
+            Checkout
+        </h1>
+
+
+        <div class="checkout-layout">
+
+
+            <!-- LEFT SIDE -->
+
+            <div>
+
+
+                <!-- Delivery Details -->
+
+                <div class="box">
+
+                    <h2>
+                        Delivery Information
+                    </h2>
+
+                    <form id="checkoutForm">
+
+                        <div class="form-group">
+
+                            <label for="fullName">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="Enter phone number"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="address">
+                                Delivery Address
+                            </label>
+
+                            <textarea
+                                id="address"
+                                placeholder="Enter your complete address"
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="city">
+                                City
+                            </label>
+
+                            <input
+                                type="text"
+                                id="city"
+                                placeholder="Enter city"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="pincode">
+                                PIN Code
+                            </label>
+
+                            <input
+                                type="text"
+                                id="pincode"
+                                placeholder="Enter PIN code"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Payment -->
+
+                        <h2>
+                            Payment Method
+                        </h2>
+
+
+                        <div class="payment-option">
+
+                            <input
+                                type="radio"
+                                id="cod"
+                                name="payment"
+                                value="Cash on Delivery"
+                                checked
+                            >
+
+                            <label for="cod">
+                                Cash on Delivery
+                            </label>
+
+                        </div>
+
+
+                        <div class="payment-option">
+
+                            <input
+                                type="radio"
+                                id="upi"
+                                name="payment"
+                                value="UPI"
+                            >
+
+                            <label for="upi">
+                                UPI
+                            </label>
+
+                        </div>
+
+
+                        <div class="payment-option">
+
+                            <input
+                                type="radio"
+                                id="card"
+                                name="payment"
+                                value="Card"
+                            >
+
+                            <label for="card">
+                                Credit / Debit Card
+                            </label>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="place-order">
+
+                            Place Order
+
+                        </button>
+
+                    </form>
+
+
+                    <div
+                        id="message"
+                        class="message">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+
+            <div class="box">
+
+                <h2>
+                    Order Summary
+                </h2>
+
+                <div id="orderItems">
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <span>
+                        ₹<span id="subtotal">0</span>
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Delivery
+                    </span>
+
+                    <span>
+                        Free
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <span>
+                        ₹<span id="total">0</span>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /*
+         * TEMPORARY CART
+         *
+         * Later this information will come
+         * from the C++ backend and SQLite.
+         */
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem("cart")
+            ) || [];
+
+
+        function displayOrderSummary() {
+
+            const container =
+                document.getElementById(
+                    "orderItems"
+                );
+
+            container.innerHTML = "";
+
+
+            let subtotal = 0;
+
+
+            cart.forEach(item => {
+
+                const itemTotal =
+                    item.price * item.quantity;
+
+
+                subtotal += itemTotal;
+
+
+                const div =
+                    document.createElement("div");
+
+                div.className =
+                    "order-item";
+
+
+                div.innerHTML = `
+
+                    <span>
+                        ${item.name}
+                        × ${item.quantity}
+                    </span>
+
+                    <span>
+                        ₹${itemTotal}
+                    </span>
+
+                `;
+
+
+                container.appendChild(div);
+
+            });
+
+
+            document.getElementById(
+                "subtotal"
+            ).textContent = subtotal;
+
+
+            document.getElementById(
+                "total"
+            ).textContent = subtotal;
+
+        }
+
+
+        document
+            .getElementById("checkoutForm")
+            .addEventListener(
+                "submit",
+                async function(event) {
+
+                    event.preventDefault();
+
+
+                    if (cart.length === 0) {
+
+                        alert(
+                            "Your cart is empty."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const payment =
+                        document.querySelector(
+                            'input[name="payment"]:checked'
+                        ).value;
+
+
+                    /*
+                     * Order object.
+                     *
+                     * Later this will be sent to:
+                     *
+                     * JavaScript
+                     *      ↓
+                     * C++ API
+                     *      ↓
+                     * SQLite
+                     */
+
+                    const order = {
+
+                        customerName:
+                            document.getElementById(
+                                "fullName"
+                            ).value,
+
+                        email:
+                            document.getElementById(
+                                "email"
+                            ).value,
+
+                        phone:
+                            document.getElementById(
+                                "phone"
+                            ).value,
+
+                        address:
+                            document.getElementById(
+                                "address"
+                            ).value,
+
+                        city:
+                            document.getElementById(
+                                "city"
+                            ).value,
+
+                        pincode:
+                            document.getElementById(
+                                "pincode"
+                            ).value,
+
+                        paymentMethod:
+                            payment,
+
+                        items:
+                            cart,
+
+                        total:
+                            cart.reduce(
+                                (sum, item) =>
+                                    sum +
+                                    item.price *
+                                    item.quantity,
+                                0
+                            )
+
+                    };
+
+
+                    console.log(
+                        "Order Data:",
+                        order
+                    );
+
+
+                    /*
+                     * TEMPORARY SUCCESS
+                     */
+
+                    const message =
+                        document.getElementById(
+                            "message"
+                        );
+
+
+                    message.style.display =
+                        "block";
+
+                    message.className =
+                        "message success";
+
+                    message.textContent =
+                        "Order placed successfully! Database connection will be added in the backend stage.";
+
+
+                    /*
+                     * Clear cart after order.
+                     */
+
+                    localStorage.removeItem(
+                        "cart"
+                    );
+
+                }
+            );
+
+
+        displayOrderSummary();
+
+    </script>
+
+</body>
+
+</html>
