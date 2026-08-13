@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Cart - JoelMart</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f6f8;
+            color: #222;
+        }
+
+        nav {
+            background: #131921;
+            color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ff9900;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .cart-items,
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 15px;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .product-icon {
+            width: 70px;
+            height: 70px;
+            background: #eee;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+        }
+
+        .item-info h3 {
+            margin-bottom: 7px;
+        }
+
+        .price {
+            color: #b12704;
+            font-weight: bold;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quantity button {
+            border: 1px solid #ccc;
+            background: white;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .quantity span {
+            min-width: 25px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            border: none;
+            background: #dc3545;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .summary h2 {
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+
+        .total {
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #ff9900;
+            color: #111;
+            padding: 13px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 50px 20px;
+            color: #777;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #ff9900;
+            color: #111;
+            padding: 10px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-item {
+                grid-template-columns: 60px 1fr;
+            }
+
+            .remove-btn {
+                grid-column: 2;
+                width: fit-content;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            JoelMart
+        </div>
+
+        <div>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="login.html">Login</a>
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+
+        <h1>🛒 Shopping Cart</h1>
+
+        <div class="cart-layout">
+
+            <div class="cart-items">
+
+                <div id="cartContainer">
+                    <!-- Cart items will appear here -->
+                </div>
+
+            </div>
+
+
+            <div class="summary">
+
+                <h2>Order Summary</h2>
+
+                <div class="summary-row">
+
+                    <span>Items</span>
+
+                    <span id="itemCount">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>Subtotal</span>
+
+                    <span>
+                        ₹<span id="subtotal">0</span>
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>Delivery</span>
+
+                    <span>
+                        Free
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row total">
+
+                    <span>Total</span>
+
+                    <span>
+                        ₹<span id="total">0</span>
+                    </span>
+
+                </div>
+
+
+                <a
+                    href="checkout.html"
+                    class="checkout-btn"
+                    id="checkoutButton">
+
+                    Proceed to Checkout
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /*
+         * Temporary cart storage.
+         *
+         * Currently products.html stores cart
+         * information in localStorage.
+         *
+         * Later the cart will also be connected
+         * to the C++ backend and SQLite database.
+         */
+
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem("cart")
+            ) || [];
+
+
+        function displayCart() {
+
+            const container =
+                document.getElementById(
+                    "cartContainer"
+                );
+
+
+            container.innerHTML = "";
+
+
+            if (cart.length === 0) {
+
+                container.innerHTML = `
+
+                    <div class="empty">
+
+                        <h2>Your cart is empty</h2>
+
+                        <p>
+                            Add some products to your cart.
+                        </p>
+
+                        <a
+                            href="products.html"
+                            class="shop-btn">
+
+                            Continue Shopping
+
+                        </a>
+
+                    </div>
+
+                `;
+
+                updateSummary();
+
+                return;
+            }
+
+
+            cart.forEach((item, index) => {
+
+                const div =
+                    document.createElement("div");
+
+                div.className = "cart-item";
+
+
+                div.innerHTML = `
+
+                    <div class="product-icon">
+                        🛍️
+                    </div>
+
+                    <div class="item-info">
+
+                        <h3>
+                            ${item.name}
+                        </h3>
+
+                        <p>
+                            Seller: ${item.seller}
+                        </p>
+
+                        <p class="price">
+                            ₹${item.price}
+                        </p>
+
+                        <div class="quantity">
+
+                            <button
+                                onclick="changeQuantity(${index}, -1)">
+                                −
+                            </button>
+
+                            <span>
+                                ${item.quantity}
+                            </span>
+
+                            <button
+                                onclick="changeQuantity(${index}, 1)">
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="remove-btn"
+                        onclick="removeItem(${index})">
+
+                        Remove
+
+                    </button>
+
+                `;
+
+
+                container.appendChild(div);
+
+            });
+
+
+            updateSummary();
+
+        }
+
+
+        function changeQuantity(index, change) {
+
+            cart[index].quantity += change;
+
+
+            if (cart[index].quantity <= 0) {
+
+                cart.splice(index, 1);
+
+            }
+
+
+            saveCart();
+
+        }
+
+
+        function removeItem(index) {
+
+            cart.splice(index, 1);
+
+            saveCart();
+
+        }
+
+
+        function saveCart() {
+
+            localStorage.setItem(
+                "cart",
+                JSON.stringify(cart)
+            );
+
+            displayCart();
+
+        }
+
+
+        function updateSummary() {
+
+            let itemCount = 0;
+
+            let subtotal = 0;
+
+
+            cart.forEach(item => {
+
+                itemCount += item.quantity;
+
+                subtotal +=
+                    item.price * item.quantity;
+
+            });
+
+
+            document.getElementById(
+                "itemCount"
+            ).textContent = itemCount;
+
+
+            document.getElementById(
+                "subtotal"
+            ).textContent = subtotal;
+
+
+            document.getElementById(
+                "total"
+            ).textContent = subtotal;
+
+
+            const checkoutButton =
+                document.getElementById(
+                    "checkoutButton"
+                );
+
+
+            if (cart.length === 0) {
+
+                checkoutButton.style.pointerEvents =
+                    "none";
+
+                checkoutButton.style.opacity =
+                    "0.5";
+
+            } else {
+
+                checkoutButton.style.pointerEvents =
+                    "auto";
+
+                checkoutButton.style.opacity =
+                    "1";
+
+            }
+
+        }
+
+
+        displayCart();
+
+    </script>
+
+</body>
+
+</html>
