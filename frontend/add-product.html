@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Product - JoelMart</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f6f8;
+            color: #222;
+        }
+
+        nav {
+            background-color: #131921;
+            color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ff9900;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        .form-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #ff9900;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        button {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .add-btn {
+            background-color: #ff9900;
+            color: black;
+            flex: 1;
+        }
+
+        .add-btn:hover {
+            background-color: #e68a00;
+        }
+
+        .cancel-btn {
+            background-color: #ddd;
+            color: #222;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 600px) {
+            .button-group {
+                flex-direction: column;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav a {
+                margin-left: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+
+        <div class="logo">
+            JoelMart Seller
+        </div>
+
+        <div>
+            <a href="seller.html">Dashboard</a>
+            <a href="index.html">Home</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Add Product Form -->
+    <div class="container">
+
+        <div class="form-box">
+
+            <h1>Add New Product</h1>
+
+            <p class="description">
+                Enter the product details below to add a product to your store.
+            </p>
+
+
+            <form id="productForm">
+
+                <!-- Product Name -->
+                <div class="form-group">
+
+                    <label for="productName">
+                        Product Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="productName"
+                        name="productName"
+                        placeholder="Enter product name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Description -->
+                <div class="form-group">
+
+                    <label for="description">
+                        Product Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        placeholder="Enter product description"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- Price -->
+                <div class="form-group">
+
+                    <label for="price">
+                        Price (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="price"
+                        name="price"
+                        placeholder="Enter product price"
+                        min="1"
+                        step="0.01"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Category -->
+                <div class="form-group">
+
+                    <label for="category">
+                        Category
+                    </label>
+
+                    <select
+                        id="category"
+                        name="category"
+                        required
+                    >
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        <option value="Electronics">
+                            Electronics
+                        </option>
+
+                        <option value="Fashion">
+                            Fashion
+                        </option>
+
+                        <option value="Books">
+                            Books
+                        </option>
+
+                        <option value="Home">
+                            Home & Kitchen
+                        </option>
+
+                        <option value="Beauty">
+                            Beauty
+                        </option>
+
+                        <option value="Sports">
+                            Sports
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Stock -->
+                <div class="form-group">
+
+                    <label for="stock">
+                        Available Quantity
+                    </label>
+
+                    <input
+                        type="number"
+                        id="stock"
+                        name="stock"
+                        placeholder="Enter available quantity"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Image URL -->
+                <div class="form-group">
+
+                    <label for="imageUrl">
+                        Product Image URL
+                    </label>
+
+                    <input
+                        type="url"
+                        id="imageUrl"
+                        name="imageUrl"
+                        placeholder="https://example.com/product.jpg"
+                    >
+
+                </div>
+
+
+                <!-- Buttons -->
+                <div class="button-group">
+
+                    <button
+                        type="submit"
+                        class="add-btn"
+                    >
+                        Add Product
+                    </button>
+
+                    <a
+                        href="seller.html"
+                        class="cancel-btn"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+
+            <!-- Message -->
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        document
+            .getElementById("productForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                const productName =
+                    document.getElementById("productName").value;
+
+                const price =
+                    document.getElementById("price").value;
+
+                const category =
+                    document.getElementById("category").value;
+
+                const stock =
+                    document.getElementById("stock").value;
+
+
+                /*
+                 * TEMPORARY FRONTEND TEST
+                 *
+                 * Later this data will be sent to:
+                 *
+                 * HTML
+                 *   ↓
+                 * JavaScript fetch()
+                 *   ↓
+                 * C++ Drogon Backend
+                 *   ↓
+                 * SQLite Database
+                 */
+
+
+                const productData = {
+
+                    name: productName,
+
+                    description:
+                        document.getElementById("description").value,
+
+                    price: Number(price),
+
+                    category: category,
+
+                    stock: Number(stock),
+
+                    imageUrl:
+                        document.getElementById("imageUrl").value
+
+                };
+
+
+                console.log(
+                    "Product Data:",
+                    productData
+                );
+
+
+                const message =
+                    document.getElementById("message");
+
+
+                message.style.display = "block";
+
+                message.className =
+                    "message success";
+
+                message.textContent =
+                    "Product details captured successfully. Database connection will be added in the backend stage.";
+
+            });
+
+    </script>
+
+</body>
+
+</html>
